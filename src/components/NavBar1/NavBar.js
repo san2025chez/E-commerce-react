@@ -16,7 +16,7 @@ import CartWidget from '../CartWidget/CartWidget'
 import './NavBar.scss'
 
 
-const pages = ['Frutas', 'Verduras', 'Bebidas','Libreria','Regaleria','Comestibles'];
+const pages = ['Cajas', 'Botellines', 'Cosmeticos'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const NavBar= () => {
@@ -40,7 +40,7 @@ const NavBar= () => {
 
   return (
  
-    <AppBar position="static" style={{backgroundColor: "blue"}}>
+    <AppBar position="static" style={{backgroundColor: "#6a1b9a"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -49,7 +49,7 @@ const NavBar= () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-                <Link to="/">MABEL</Link>
+                <Link to="/"><h2>LEO</h2></Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

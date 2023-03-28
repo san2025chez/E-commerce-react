@@ -24,10 +24,12 @@ import Card from "@mui/material/Card";
 
 
 
-    import {addDoc, collection,documentId,getDocs, where,  
-      query,getFirestore,writeBatch} from 'firebase/firestore'
-      import{db} from '../../firebase/firebase.js'
-  
+import {
+  addDoc, collection, documentId, getDocs, where,
+  query, getFirestore, writeBatch
+} from 'firebase/firestore'
+import { db } from '../../firebase/firebase.js'
+
 
 import { CartCntext2 } from "../../context/CartCntext2";
 
@@ -55,8 +57,8 @@ const confirm = () => {
 };
 const FORM_VALIDATION = Yup.object().shape({
   //dni: Yup.number().min(8).required('Required').positive().integer()
-  
- 
+
+
   phone: Yup.number()
     .test(
       "len",
@@ -73,7 +75,7 @@ const FORM_VALIDATION = Yup.object().shape({
     .required("Required")
     .matches(/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/, "Only alphabets are allowed for this field "),
 
- 
+
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -82,6 +84,15 @@ const useStyles = makeStyles((theme) => ({
     /* marginLeft:theme.spacing(1), */
     marginBottom: theme.spacing(8),
   },
+  cardsize: {
+    maxWidth: 800,
+    margin: '0 auto',
+    marginTop:'30px'
+  },
+  buttonStyle:{
+    width: '10px'
+
+  }
 }));
 
 
@@ -108,8 +119,8 @@ export default function Login() {
   const [user, setUser] = useState({
     name: "",
     surname: "",
- phone:""
-   
+    phone: ""
+
   });
   const captcha = React.createRef();
   const onChange = () => {
@@ -127,8 +138,8 @@ export default function Login() {
       total: totalPrice(),
     };
 
-  ;
-  const batch = writeBatch(db);
+    ;
+    const batch = writeBatch(db);
 
     const orderRef = collection(db, "orders");
     const productosRef = collection(db, "productos");
@@ -193,86 +204,85 @@ export default function Login() {
     crearOrden();
   };
 
-  
+
   const INITIAL_FORM_STATE = {
     name: "",
     surname: "",
     phone: "",
- 
+
   };
 
   const sendDatos = (event) => {
     event.preventDefault();
     console.log("USER", user);
   };
-
+const restartForm=()=>{
+  setUser(INITIAL_FORM_STATE)
+}
 
   return (
-  
-    <Grid container justifyContent="center">
-          <Grid item xs={12}>
-            <Container maxWidth="md">
-              <div className={classes.formWrapper}>
-                <Formik
-                  initialValues={{
-                    ...(INITIAL_FORM_STATE || ""),
-                  }}
-                  validationSchema={FORM_VALIDATION}
-                  onSubmit={(values) => capturoDatos(values)}
-                >
-                  <Form>
-                    <Grid container spacing={1}>
-                      <Grid item xs={12}>
-                        <Textfield
-                          name="name"
-                          label="Nombre"
-                          placeholder="nombre"
-                        />
-                      </Grid>
 
-                      <Grid item xs={12}>
-                        <Textfield
-                          name="surname"
-                          label="Apellido"
-                          placeholder="Apellido"
-                        />
-                      </Grid>
+    <Grid container justifyContent="center"  alignItems="center" marginTop="50px">
+      <Grid item xs={12} sm={6} md={8} lg={6}>
+      <Card className={classes.cardsize}>
+  <CardContent>
+        <Container>
+          <div className={classes.formWrapper}>
+            <Formik
+              initialValues={{
+                ...(INITIAL_FORM_STATE || ""),
+              }}
+              validationSchema={FORM_VALIDATION}
+              onSubmit={(values) => capturoDatos(values)}
+            >
+              <Form>
+                <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <Textfield
+                      name="name"
+                      label="Nombre"
+                      placeholder="nombre"
+                    />
+                  </Grid>
 
-                      <Grid item xs={12}>
-                        <Textfield
-                          name="phone"
-                          label="Telefono"
-                          placeholder="Telefono"
-                        />
-                      </Grid>
+                  <Grid item xs={12}>
+                    <Textfield
+                      name="surname"
+                      label="Apellido"
+                      placeholder="Apellido"
+                    />
+                  </Grid>
 
+                  <Grid item xs={12}>
+                    <Textfield
+                      name="phone"
+                      label="Telefono"
+                      placeholder="Telefono"
+                    />
+                  </Grid>
+                  <div style={{ marginLeft: "auto", marginRight: "auto" }}>
+                    <br />
+                    <ReCAPTCHA
+                      ref={captcha}
+                      sitekey="6LfCt5keAAAAAOEAoTbu3JpTmAhDk1Wrblv8Y-EA"
+                      onChange={onChange}
+                    />
+                    <br />
+                  </div>
 
-              
+                  <Grid item xs={12} sm={6} md={8} lg={6}  style={{ marginLeft: "auto", marginRight: "auto" }} >
+                    <Button onClick={()=>restartForm()} size="medium" >Finalizar Compra</Button>
+                  </Grid>
+                </Grid>
+              </Form>
+            </Formik>
+          </div>
+        </Container>
+        </CardContent>
+</Card>
+      </Grid>
 
-                  
+    </Grid>
 
-
-                  
-                      <div style={{ marginLeft: "auto", marginRight: "auto" }}>
-                      <br/>
-                        <ReCAPTCHA
-                          ref={captcha}
-                          sitekey="6LfCt5keAAAAAOEAoTbu3JpTmAhDk1Wrblv8Y-EA"
-                          onChange={onChange}
-                        />
-                           <br/>
-                      </div>
-                 
-                      <Grid item xs={12}>
-                        <Button>Submit Form</Button>
-                      </Grid>
-                    </Grid>
-                  </Form>
-                </Formik>
-              </div>
-            </Container>
-          </Grid>
-        </Grid>
-       
   )
 }

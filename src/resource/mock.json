@@ -1,0 +1,13 @@
+[
+    {
+        "id": 1,
+        "nombre": "Imagen 1",
+        "imagen": "/omni2.jpeg"
+    },
+  
+    {
+        "id": 3,
+        "nombre": "Imagen 3",
+        "imagen": "/omni5.PNG"
+    }
+]

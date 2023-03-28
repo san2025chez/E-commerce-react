@@ -13,6 +13,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import "@fontsource/roboto";
 import { green, orange } from "@material-ui/core/colors";
 import { StyledEngineProvider } from "@mui/material/styles";
+import Carousel1 from "./components/carousel/Carousel1"
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
             <NavBar></NavBar>{" "}
           </StyledEngineProvider>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Carousel1/>} />
 
             <Route exact path="/categoria/:Id" element={<Home />} />
 
